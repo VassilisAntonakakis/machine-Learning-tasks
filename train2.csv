@@ -1,8 +1,8 @@
-﻿"Complexity,acidity(pH),sweetness,dry,alcohol(ABV)"
-"h,3.6pH,0.01,yes,0.115"
-"l,2.8pH,0.03,no,0.100"
-"h,3.8pH,0.01,yes,0.150"
-"l,2.5pH,0.05,no,0.080"
-"h,4.0pH,0.010,yes,0.200"
-"h,3.51,0.019,yes,0.150"
-"h,3.16Ph,0.019,no,0.100"
+﻿Complexity,acidity(pH),sweetness,dry,alcohol(ABV),Quality
+h,3.6,0.01,yes,0.115,8
+l,2.8,0.03,no,0.100,6
+h,3.8,0.01,yes,0.150,7
+l,2.5,0.05,no,0.080,5
+h,4.0,0.010,yes,0.200,4
+h,3.51,0.019,yes,0.150,7
+h,3.16,0.019,no,0.100,8
