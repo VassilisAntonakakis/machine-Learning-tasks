@@ -1,0 +1,10 @@
+﻿age,income,housing,married,classifies
+young,low,rent,no,no
+middle,middle,owner,yes,yes
+middle,high,owner,no,yes
+senior,high,owner,no,no
+senior,high,owner,yes,no
+senior,middle,rent,yes,no
+young,low,rent,yes,no
+young,high,no,no,yes
+young,middle,owner,no,yes
