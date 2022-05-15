@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 def int_mapper(df, target_column):
 
     df_mod = df
-    targets = df_mod[target_column].unique()
-    map_to_int = {name: n for n, name in enumerate(targets)}
+    values = df_mod[target_column].unique()
+    map_to_int = {name: n for n, name in enumerate(values)}
 
     df_mod[target_column] = df_mod[target_column].replace(map_to_int)
-    return (df_mod, targets)
+    return df_mod
 
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
@@ -21,7 +21,7 @@ df2 = df.copy()
 print("Trainning dataframe: \n")
 for col in df:
     print(col)
-    df2, targets = int_mapper(df2, col)
+    df2 = int_mapper(df2, col)
 
 print(df2)
 
@@ -30,12 +30,12 @@ X, y = df2[["age", "income", "housing", "married"]], df2[["classifies"]]
 # decision node selection criterion setting entropy/gini
 Dtree = tr.DecisionTreeClassifier(criterion="gini")
 
-fn = ['age', 'income', 'housing', 'married']
-cn = ['yes', 'no']
+features = ['age', 'income', 'housing', 'married']
+classes = ['yes', 'no']
 fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(4, 4), dpi=200)
 tr.plot_tree(Dtree.fit(X, y),
-             feature_names=fn,
-             class_names=cn,
+             feature_names=features,
+             class_names=classes,
              filled=True)
 
 del df, df2, data
@@ -47,7 +47,7 @@ print("New df: ", dfEval)
 
 for col in df:
     print(col)
-    dfEval, targets = int_mapper(dfEval, col)
+    dfEval = int_mapper(dfEval, col)
 
 print("Eval dataframe: \n", dfEval)
 results = Dtree.predict(dfEval)
