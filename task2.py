@@ -1,8 +1,11 @@
 from calendar import c
 import string
+import numpy as np
+from numpy import float64
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+from sklearn.impute import SimpleImputer as SI
 
 def int_mapper(df, target_column):
 
@@ -17,9 +20,24 @@ def int_mapper(df, target_column):
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 data = pd.read_csv("task2trainning.csv", delimiter=";")
 dfTrain = pd.DataFrame(data)
-print(dfTrain.tail())
 
-kmeans = KMeans(n_clusters = 10, random_state = 0).fit(dfTrain[["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"]])
+#dfTrain["alcohol"] = pd.to_numeric(dfTrain["alcohol"], errors = 'coerce')
 
-pd.plotting.scatter_matrix(dfTrain)
+index = 0
+for col in dfTrain:
+    if dfTrain[col].isnull().values.any():
+        print("NaN value at: ", col, " at index: ", index)
+    index += 1
+
+kmeans = KMeans(n_clusters = 10, random_state = 0)
+kmeans.fit(dfTrain[["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"]])
+
+label = kmeans.predict(dfTrain[["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"]])
+
+#plotting the results:
+u_labels = np.unique(label)
+for i in u_labels:
+    plt.scatter(dfTrain[label == i , 0] , dfTrain[label == i , 1] , label = i)
+
+plt.legend()
 plt.show()
