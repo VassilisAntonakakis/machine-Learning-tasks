@@ -1,3 +1,5 @@
+#Data Source: https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data?resource=download
+
 import pandas as pd
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
@@ -18,14 +20,13 @@ data = pd.read_csv("task3trainning.csv")
 df = pd.DataFrame(data)
 dfbackup = df.copy
 
-x, y = df[["radius_mean"]].to_numpy(), df[["texture_mean"]].to_numpy
-
+x, y = df[["radius_mean"]].to_numpy(), df[["texture_mean"]].to_numpy()
 
 xTrain = x[:-20]
-xTest = x[-20:]
+xTest = x[:-20]
 
-yTrain = y
-yTest = y
+yTrain = y[:-20]
+yTest = y[:-20]
 
 regr = linear_model.LinearRegression()
 
@@ -33,10 +34,9 @@ regr.fit(xTrain, yTrain)
 
 predict = regr.predict(xTest)
 
-print("Predicted values: \n", predict)
 print("Coefficients: \n", regr.coef_)
 print("Mean squared error: %.2f" % mean_squared_error(yTest, predict))
-print("Coefficient of determination: %.2f" % r2_score(yTest, predict))
+print("Coefficient of determination: %.2f" % (r2_score(yTest, predict) * 100), "%")
 plt.scatter(xTest, yTest, color="black")
 plt.plot(xTest, predict, color="blue", linewidth=3)
 
