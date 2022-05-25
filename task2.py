@@ -29,12 +29,17 @@ dfEval = pd.DataFrame(data)
 kmeans = KMeans(n_clusters = 10, random_state = 0)
 kmeans.fit(dfTrain[["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"]])
 
-labelEval = kmeans.predict(dfEval[["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"]])
+labelEval = kmeans.predict(dfTrain[["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"]])
 
-index = 1
-for cluster in labelEval:
-    print(index, " belongs to cluster: " , cluster)
+rating = {}
+index = 0
+for row in dfTrain.itertuples(index=False):
+    for column in row:
+        rating[index] += (column * (1 / 11))
+        #print("Value: ", column)
     index += 1
+print(rating)
+
 
 
 #plotting the results:
@@ -42,8 +47,9 @@ u_labels = np.unique(labelEval)
 centroids = kmeans.cluster_centers_
 
 for i in u_labels:
-    plt.scatter(dfEval[["fixed acidity"]],
-    dfEval[["volatile acidity"]],
+    plt.scatter(
+    rating,
+    dfTrain[["quality"]],
     c = labelEval,
     s = 50,
     cmap = 'viridis'
