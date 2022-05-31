@@ -103,7 +103,7 @@ results = Dtree.predict(df[["radius_mean",
 index = 1
 for result in results:
     if result == 0:
-        print("Result for entry ", index, " is: Malignent Tumor")
+        print("Result for entry ", index, " is: Malignant Tumor")
     else:
         print("Result for entry ", index, " is: Benign Tumor")
     index += 1
