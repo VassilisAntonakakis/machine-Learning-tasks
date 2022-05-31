@@ -25,7 +25,7 @@ for col in df:
 
 print(df2)
 
-X, y = df2[["age", "income", "housing", "married"]], df2[["classifies"]]
+X, y = df2[["age, income, housing, married"]], df2[["classifies"]]
 
 # decision node selection criterion setting entropy/gini
 Dtree = tr.DecisionTreeClassifier(criterion="gini")
@@ -61,3 +61,4 @@ for result in results:
     index += 1
 
 plt.show()
+print()
